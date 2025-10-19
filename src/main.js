@@ -26,7 +26,8 @@ async function readPlayers(bytes) {
 async function readPlayer(bytes) {
     const player = {}
     player.color = await readPlayerColor(bytes)
-    await consume(bytes, 3)
+    player.canBeHuman = Boolean(await readInt8(bytes))
+    await consume(bytes, 2, true)
     player.availableAlignments = await readPlayerAlignments(bytes)
     return player
 }
