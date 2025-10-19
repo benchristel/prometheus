@@ -1,0 +1,37 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    devDependencies:
+      '@benchristel/taste':
+        specifier: ^0.7.0
+        version: 0.7.0
+
+packages:
+
+  '@benchristel/taste@0.7.0':
+    resolution: {integrity: sha512-VhYLQ6g4JTUa6uvq2KiVVSLNqR9iitxFEdwDMhbVSHx16S1OQs3hrI6qIi7JwcLmpIlQ7nJOpMj8qvDGL6wFQA==}
+
+  '@longlast/curry@0.6.0':
+    resolution: {integrity: sha512-tSwEqmGTfpL5I4BtsiA0520LJRRpAkg4sI4/HCmGIuNywYs/VS/DPm+A51moVwpCPGxfq0/ng5q+65QlmP7zIQ==}
+
+  '@longlast/symbols@1.1.0':
+    resolution: {integrity: sha512-P5CSQkumJ32UjMYB4wJeCzlm58+YTgF0k+Wxt37vBvmybnxrAuzQzbafOGpZoHRFUAXM45MBPg9i/ZwCVtdFLg==}
+
+snapshots:
+
+  '@benchristel/taste@0.7.0':
+    dependencies:
+      '@longlast/curry': 0.6.0
+      '@longlast/symbols': 1.1.0
+
+  '@longlast/curry@0.6.0':
+    dependencies:
+      '@longlast/symbols': 1.1.0
+
+  '@longlast/symbols@1.1.0': {}

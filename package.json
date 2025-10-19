@@ -3,10 +3,14 @@
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "dev/test.js"
   },
   "author": "Ben Christel (https://benchristel.com/)",
   "license": "MIT",
-  "packageManager": "pnpm@10.14.0"
+  "packageManager": "pnpm@10.14.0",
+  "devDependencies": {
+    "@benchristel/taste": "^0.7.0"
+  }
 }
