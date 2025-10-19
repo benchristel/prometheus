@@ -1,0 +1,12 @@
+{
+  "name": "prometheus",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ben Christel (https://benchristel.com/)",
+  "license": "MIT",
+  "packageManager": "pnpm@10.14.0"
+}
