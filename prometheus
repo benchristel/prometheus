@@ -1,0 +1,5 @@
+#!/bin/sh
+
+# Usage: ./prometheus path/to/my-map.h4c
+
+tail -c +16 "$1" | gunzip | src/main.js
