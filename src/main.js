@@ -2,48 +2,55 @@
 
 main()
 
-const output = {}
-
 async function main() {
+    const output = {}
+
     const bytes = byteIterator(process.stdin)
     
     await readHeader(bytes)
-    await readMapName(bytes)
+    output.mapName = await readMapName(bytes)
     
     console.log(JSON.stringify(output, null, 4))
 }
 
 async function readHeader(bytes) {
-    for (let read = 0; read < 12; read++) {
-        const {done, value} = await bytes.next()
-        console.log(value)
-        if (done) throw Error("readHeader: unexpected end of byte stream")
-    }
+    await consume(bytes, 12)
 }
 
 async function readMapName(bytes) {
     const length = await readInt16(bytes)
-    output.mapName = await readASCII(bytes, length)
+    return await readASCII(bytes, length)
 }
 
 async function readInt16(bytes) {
+    // Note: we assume ints are little-endian.
     let int = 0
-    for (let read = 0; read < 2; read++) {
-        const {value: byte, done} = await bytes.next()
-        if (done) throw Error("readInt16: unexpected end of byte stream")
-        int |= byte << (read * 8)
+    let shift = 0
+    for await (const byte of read(bytes, 2)) {
+        int |= byte << shift
+        shift += 8
     }
     return int
 }
 
 async function readASCII(bytes, length) {
     let string = ""
-    for (let read = 0; read < length; read++) {
-        const {value: byte, done} = await bytes.next()
-        if (done) throw Error("readASCII: unexpected end of byte stream")
+    for await (const byte of read(bytes, length)) {
         string += String.fromCharCode(byte)
     }
     return string
+}
+
+async function consume(bytes, numBytes) {
+    for await (const _ of read(bytes, numBytes)) {}
+}
+
+async function* read(bytes, numBytes) {
+    for (let read = 0; read < numBytes; read++) {
+        const {value: byte, done} = await bytes.next()
+        if (done) throw Error(`Unexpected end of byte stream`)
+        yield byte
+    }
 }
 
 function byteIterator(readableStream) {
