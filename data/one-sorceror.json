@@ -1,4 +1,6 @@
 {
+    "mapName": "This is the map name",
+    "mapDescription": "This is the map description",
     "players": [
         {
             "color": "red",
@@ -8,8 +10,6 @@
             }
         }
     ],
-    "mapName": "This is the map name",
-    "mapDescription": "This is the map description",
     "playerDetails": [
         {
             "maxLevel": 42

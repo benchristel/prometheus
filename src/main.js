@@ -12,7 +12,12 @@ import {
 main()
 
 async function main() {
-    const output = {}
+    const output = {
+        mapName: "",
+        mapDescription: "",
+        players: [],
+        playerDetails: [],
+    }
 
     const bytes = byteIterator(process.stdin)
     
