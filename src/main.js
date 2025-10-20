@@ -39,8 +39,8 @@ async function main() {
     output.initialVictoryConditionDescription
         = await readInitialVictoryConditionDescription(bytes)
     await consume(bytes, 1)
-    output.prologue = await readPrologue(bytes)
-    output.epilogue = await readPrologue(bytes)
+    output.prologue = await readExposition(bytes)
+    output.epilogue = await readExposition(bytes)
     output.carryoverDescription = await readString(bytes)
     await consume(bytes, 9)
     await consume(bytes, 60)
@@ -99,18 +99,19 @@ async function readInitialLossConditionDescription(bytes) {
     }
 }
 
-async function readPrologue(bytes) {
+// Reads a prologue or epilogue
+async function readExposition(bytes) {
     if (await readInt8(bytes)) {
-        const prologue = {
+        const exposition = {
             message: "",
             image: "",
             voiceOver: "",
         }
         await consume(bytes, 2)
-        prologue.message = await readString(bytes)
-        prologue.image = await readString(bytes)
-        prologue.voiceOver = await readString(bytes)
-        return prologue
+        exposition.message = await readString(bytes)
+        exposition.image = await readString(bytes)
+        exposition.voiceOver = await readString(bytes)
+        return exposition
     } else {
         return null
     }
