@@ -1,0 +1,31 @@
+{
+    "mapName": "This is the map name",
+    "mapDescription": "This is the map description",
+    "carryoverDescription": "This is the carryover description",
+    "initialVictoryConditionDescription": "This is the initial victory condition description",
+    "initialLossConditionDescription": "This is the initial loss condition description",
+    "prologue": {
+        "message": "This is the prologue message",
+        "image": "ambush",
+        "voiceOver": "H4x1_campaign_3_prologue"
+    },
+    "epilogue": {
+        "message": "This is the epilogue message",
+        "image": "ambush",
+        "voiceOver": ""
+    },
+    "players": [
+        {
+            "color": "red",
+            "canBeHuman": true,
+            "availableAlignments": {
+                "chaos": true
+            }
+        }
+    ],
+    "playerDetails": [
+        {
+            "maxLevel": 42
+        }
+    ]
+}

@@ -1,6 +1,11 @@
 {
     "mapName": "blank",
     "mapDescription": "",
+    "carryoverDescription": "",
+    "initialVictoryConditionDescription": null,
+    "initialLossConditionDescription": null,
+    "prologue": null,
+    "epilogue": null,
     "players": [],
     "playerDetails": []
 }

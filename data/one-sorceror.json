@@ -1,6 +1,11 @@
 {
     "mapName": "This is the map name",
     "mapDescription": "This is the map description",
+    "carryoverDescription": "",
+    "initialVictoryConditionDescription": null,
+    "initialLossConditionDescription": null,
+    "prologue": null,
+    "epilogue": null,
     "players": [
         {
             "color": "red",

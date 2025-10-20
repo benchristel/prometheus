@@ -15,6 +15,11 @@ async function main() {
     const output = {
         mapName: "",
         mapDescription: "",
+        carryoverDescription: "",
+        initialVictoryConditionDescription: "",
+        initialLossConditionDescription: "",
+        prologue: null,
+        epilogue: null,
         players: [],
         playerDetails: [],
     }
@@ -29,7 +34,15 @@ async function main() {
     await consume(bytes, 2)
     const mysteryLength = await readInt8(bytes)
     await consume(bytes, mysteryLength)
-    await consume(bytes, 16)
+    output.initialLossConditionDescription
+        = await readInitialLossConditionDescription(bytes)
+    output.initialVictoryConditionDescription
+        = await readInitialVictoryConditionDescription(bytes)
+    await consume(bytes, 1)
+    output.prologue = await readPrologue(bytes)
+    output.epilogue = await readPrologue(bytes)
+    output.carryoverDescription = await readString(bytes)
+    await consume(bytes, 9)
     await consume(bytes, 60)
     output.playerDetails = await readPlayerDetails(bytes, output.players.length)
     console.log(JSON.stringify(output, null, 4))
@@ -75,6 +88,32 @@ async function readPlayerAlignments(bytes) {
     if (bits[4]) alignments.nature = true
     if (bits[5]) alignments.might = true
     return alignments
+}
+
+const readInitialVictoryConditionDescription = readInitialLossConditionDescription
+async function readInitialLossConditionDescription(bytes) {
+    if (await readInt8(bytes)) {
+        return await readString(bytes)
+    } else {
+        return null
+    }
+}
+
+async function readPrologue(bytes) {
+    if (await readInt8(bytes)) {
+        const prologue = {
+            message: "",
+            image: "",
+            voiceOver: "",
+        }
+        await consume(bytes, 2)
+        prologue.message = await readString(bytes)
+        prologue.image = await readString(bytes)
+        prologue.voiceOver = await readString(bytes)
+        return prologue
+    } else {
+        return null
+    }
 }
 
 async function readString(bytes) {
