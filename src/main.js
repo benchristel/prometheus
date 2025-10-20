@@ -28,11 +28,10 @@ async function main() {
     }
 
     const bytes = byteIterator(process.stdin)
+
+    const header = await readHeader(bytes)
+    output.mapSize = header.mapSize
     
-    const mysteryLength1 = await readInt8(bytes)
-    await consume(bytes, 3)
-    output.mapSize = await readInt8(bytes)
-    await consume(bytes, mysteryLength1 - 23)
     output.players = await readPlayers(bytes)
     output.mapName = await readString(bytes)
     await consume(bytes, 1)
@@ -53,6 +52,26 @@ async function main() {
     await consume(bytes, 60)
     output.playerDetails = await readPlayerDetails(bytes, output.players.length)
     console.log(JSON.stringify(output, null, 4))
+}
+
+async function readHeader(bytes) {
+    const header = {}
+    const code = await readInt8(bytes)
+    switch (code) {
+        case 0x1b:
+            await consume(bytes, 1)
+            header.mapSize = await readInt8(bytes)
+            await consume(bytes, 6)
+            break;
+        case 0x1d:
+            await consume(bytes, 3)
+            header.mapSize = await readInt8(bytes)
+            await consume(bytes, 6)
+            break;
+        default:
+            throw Error(`Unexpected header code 0x${code.toString(16)}`)
+    }
+    return header;
 }
 
 async function readPlayers(bytes) {
