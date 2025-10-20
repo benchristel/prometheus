@@ -10,7 +10,12 @@ async function main() {
     await consume(bytes, 11)
     output.players = await readPlayers(bytes)
     output.mapName = await readMapName(bytes)
-    
+    await consume(bytes, 5)
+    const mysteryLength = await readInt8(bytes)
+    await consume(bytes, mysteryLength)
+    await consume(bytes, 16)
+    await consume(bytes, 60)
+    output.playerDetails = await readPlayerDetails(bytes, output.players.length)
     console.log(JSON.stringify(output, null, 4))
 }
 
@@ -27,7 +32,7 @@ async function readPlayer(bytes) {
     const player = {}
     player.color = await readPlayerColor(bytes)
     player.canBeHuman = Boolean(await readInt8(bytes))
-    await consume(bytes, 2, true)
+    await consume(bytes, 2)
     player.availableAlignments = await readPlayerAlignments(bytes)
     return player
 }
@@ -59,6 +64,27 @@ async function readPlayerAlignments(bytes) {
 async function readMapName(bytes) {
     const length = await readInt16(bytes)
     return await readASCII(bytes, length)
+}
+
+async function readPlayerDetails(bytes, numPlayers) {
+    const playerDetails = new Array(numPlayers)
+    for (let i = 0; i < numPlayers; i++) {
+        playerDetails[i] = await readPlayerDetail(bytes)
+    }
+    return playerDetails
+}
+
+async function readPlayerDetail(bytes) {
+    const detail = {
+        maxLevel: null
+    }
+    await consume(bytes, 1)
+    const hasMaxLevel = Boolean(await readInt8(bytes))
+    if (hasMaxLevel) {
+        detail.maxLevel = await readInt16(bytes)
+    }
+    await consume(bytes, 1)
+    return detail
 }
 
 async function readInt8(bytes) {
