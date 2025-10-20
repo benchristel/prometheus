@@ -18,8 +18,10 @@ async function main() {
     
     await consume(bytes, 11)
     output.players = await readPlayers(bytes)
-    output.mapName = await readMapName(bytes)
-    await consume(bytes, 5)
+    output.mapName = await readString(bytes)
+    await consume(bytes, 1)
+    output.mapDescription = await readString(bytes)
+    await consume(bytes, 2)
     const mysteryLength = await readInt8(bytes)
     await consume(bytes, mysteryLength)
     await consume(bytes, 16)
@@ -70,7 +72,7 @@ async function readPlayerAlignments(bytes) {
     return alignments
 }
 
-async function readMapName(bytes) {
+async function readString(bytes) {
     const length = await readInt16(bytes)
     return await readASCII(bytes, length)
 }

@@ -1,0 +1,18 @@
+{
+    "players": [
+        {
+            "color": "red",
+            "canBeHuman": true,
+            "availableAlignments": {
+                "chaos": true
+            }
+        }
+    ],
+    "mapName": "This is the map name",
+    "mapDescription": "This is the map description",
+    "playerDetails": [
+        {
+            "maxLevel": 42
+        }
+    ]
+}

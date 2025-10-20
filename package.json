@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "dev/test.js"
+    "test": "dev/test.js && dev/snapshot-test.sh"
   },
   "author": "Ben Christel (https://benchristel.com/)",
   "license": "MIT",
