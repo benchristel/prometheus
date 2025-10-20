@@ -3,6 +3,7 @@
 import {byteIterator} from "./byte-iterator.js"
 import {
     consume,
+    readBoolean,
     readInt8,
     readInt16,
     readBitmap,
@@ -16,6 +17,7 @@ async function main() {
         mapName: "",
         mapDescription: "",
         carryoverDescription: "",
+        intendedForMultiplayer: false,
         initialVictoryConditionDescription: "",
         initialLossConditionDescription: "",
         prologue: null,
@@ -42,7 +44,8 @@ async function main() {
     output.prologue = await readExposition(bytes)
     output.epilogue = await readExposition(bytes)
     output.carryoverDescription = await readString(bytes)
-    await consume(bytes, 9)
+    output.intendedForMultiplayer = await readBoolean(bytes)
+    await consume(bytes, 8)
     await consume(bytes, 60)
     output.playerDetails = await readPlayerDetails(bytes, output.players.length)
     console.log(JSON.stringify(output, null, 4))

@@ -2,6 +2,7 @@
     "mapName": "This is the map name",
     "mapDescription": "This is the map description",
     "carryoverDescription": "This is the carryover description",
+    "intendedForMultiplayer": false,
     "initialVictoryConditionDescription": "This is the initial victory condition description",
     "initialLossConditionDescription": "This is the initial loss condition description",
     "prologue": {

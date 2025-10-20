@@ -1,3 +1,7 @@
+export async function readBoolean(bytes) {
+    return Boolean(await readInt8(bytes))
+}
+
 export async function readInt8(bytes) {
     for await (const byte of read(bytes, 1)) {
         return byte

@@ -2,6 +2,7 @@
     "mapName": "blank",
     "mapDescription": "",
     "carryoverDescription": "",
+    "intendedForMultiplayer": false,
     "initialVictoryConditionDescription": null,
     "initialLossConditionDescription": null,
     "prologue": null,
