@@ -7,7 +7,7 @@ import {
     readInt8,
     readInt16,
     readBitmap,
-    readASCII,
+    readString,
 } from "./primitives.js"
 
 main()
@@ -118,11 +118,6 @@ async function readExposition(bytes) {
     } else {
         return null
     }
-}
-
-async function readString(bytes) {
-    const length = await readInt16(bytes)
-    return await readASCII(bytes, length)
 }
 
 async function readPlayerDetails(bytes, numPlayers) {

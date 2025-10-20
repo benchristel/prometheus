@@ -33,7 +33,12 @@ export async function readBitmap(bytes) {
     ]
 }
 
-export async function readASCII(bytes, length) {
+export async function readString(bytes) {
+    const length = await readInt16(bytes)
+    return await readASCII(bytes, length)
+}
+
+async function readASCII(bytes, length) {
     let string = ""
     for await (const byte of read(bytes, length)) {
         string += String.fromCharCode(byte)
