@@ -1,5 +1,6 @@
 {
     "mapSize": 76,
+    "numMapLevels": 1,
     "mapName": "blank",
     "mapDescription": "",
     "carryoverDescription": "",

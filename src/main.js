@@ -15,6 +15,7 @@ main()
 async function main() {
     const output = {
         mapSize: 0,
+        numMapLevels: 0,
         mapName: "",
         mapDescription: "",
         carryoverDescription: "",
@@ -31,6 +32,7 @@ async function main() {
 
     const header = await readHeader(bytes)
     output.mapSize = header.mapSize
+    output.numMapLevels = header.numMapLevels
     
     output.players = await readPlayers(bytes)
     output.mapName = await readString(bytes)
@@ -60,13 +62,16 @@ async function readHeader(bytes) {
     switch (code) {
         case 0x1b:
             await consume(bytes, 1)
-            header.mapSize = await readInt8(bytes)
-            await consume(bytes, 6)
+            header.mapSize = await readInt16(bytes)
+            header.numMapLevels = await readInt8(bytes)
+            await consume(bytes, 4)
             break;
+        case 0x1c:
         case 0x1d:
             await consume(bytes, 3)
-            header.mapSize = await readInt8(bytes)
-            await consume(bytes, 6)
+            header.mapSize = await readInt16(bytes)
+            header.numMapLevels = await readInt8(bytes)
+            await consume(bytes, 4)
             break;
         default:
             throw Error(`Unexpected header code 0x${code.toString(16)}`)

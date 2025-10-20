@@ -1,5 +1,6 @@
 {
     "mapSize": 152,
+    "numMapLevels": 1,
     "mapName": "This is the map name",
     "mapDescription": "This is the map description",
     "carryoverDescription": "This is the carryover description",
