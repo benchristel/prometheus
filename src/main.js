@@ -58,17 +58,21 @@ async function main() {
 
 async function readHeader(bytes) {
     const header = {}
-    const code = await readInt8(bytes)
+    // I'm not sure if this is an int16 or an int8 followed by something else.
+    // Assuming it's an int16, the second (high) byte is 0 in all the maps I
+    // have.
+    const code = await readInt16(bytes)
     switch (code) {
         case 0x1b:
-            await consume(bytes, 1)
             header.mapSize = await readInt16(bytes)
             header.numMapLevels = await readInt8(bytes)
             await consume(bytes, 4)
             break;
         case 0x1c:
         case 0x1d:
-            await consume(bytes, 3)
+            // I think the first of these 2 bytes might indicate which
+            // expansions are required to play the map, but I'm not sure.
+            await consume(bytes, 2)
             header.mapSize = await readInt16(bytes)
             header.numMapLevels = await readInt8(bytes)
             await consume(bytes, 4)
