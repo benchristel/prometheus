@@ -14,6 +14,7 @@ main()
 
 async function main() {
     const output = {
+        mapSize: 0,
         mapName: "",
         mapDescription: "",
         carryoverDescription: "",
@@ -29,7 +30,9 @@ async function main() {
     const bytes = byteIterator(process.stdin)
     
     const mysteryLength1 = await readInt8(bytes)
-    await consume(bytes, mysteryLength1 - 19)
+    await consume(bytes, 3)
+    output.mapSize = await readInt8(bytes)
+    await consume(bytes, mysteryLength1 - 23)
     output.players = await readPlayers(bytes)
     output.mapName = await readString(bytes)
     await consume(bytes, 1)
