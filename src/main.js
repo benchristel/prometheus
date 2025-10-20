@@ -28,14 +28,15 @@ async function main() {
 
     const bytes = byteIterator(process.stdin)
     
-    await consume(bytes, 11)
+    const mysteryLength1 = await readInt8(bytes)
+    await consume(bytes, mysteryLength1 - 19)
     output.players = await readPlayers(bytes)
     output.mapName = await readString(bytes)
     await consume(bytes, 1)
     output.mapDescription = await readString(bytes)
     await consume(bytes, 2)
-    const mysteryLength = await readInt8(bytes)
-    await consume(bytes, mysteryLength)
+    const mysteryLength2 = await readInt8(bytes)
+    await consume(bytes, mysteryLength2)
     output.initialLossConditionDescription
         = await readInitialLossConditionDescription(bytes)
     output.initialVictoryConditionDescription
