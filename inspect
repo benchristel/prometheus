@@ -1,0 +1,3 @@
+#!/bin/sh
+
+tail -c +16 "$1" | gunzip | hexdump -C | less
